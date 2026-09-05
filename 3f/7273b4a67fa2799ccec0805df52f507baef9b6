@@ -1,0 +1,14 @@
+config.toml
+  h_eabc34dcaf7833 1-45
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.0",
+  "base_commit_sha": "3f7273b4a67fa2799ccec0805df52f507baef9b6",
+  "prompts": {},
+  "humans": {
+    "h_eabc34dcaf7833": {
+      "author": "muhai <muhai.li@tuya.com>"
+    }
+  }
+}
