@@ -1,0 +1,45 @@
+# cc-connect 配置 (~/.cc-connect/config.toml)
+# cc-connect daemon install --config ~/.cc-connect/config.toml
+
+language = "zh"
+shell_profile = "source ~/.zshrc"
+
+[display]
+mode = "quiet"              # 开启精简/静默模式
+thinking_messages = false   # 关闭思考过程
+tool_messages = false       # 关闭工具调用详情日志
+
+[log]
+level = "info"
+
+[[hooks]]
+event   = "message.received"
+type    = "command"
+async   = true
+timeout = 15
+command = "<路径>/.cc-connect/auto-workspace-dir.py --config <路径>/.cc-connect/config.toml"
+
+[[projects]]
+name = "macos-bot-feishu"
+
+# 多工作区：每个群独立绑目录、会话隔离（这几项在 [[projects]] 顶层，不是 agent.options）
+mode = "multi-workspace"
+base_dir = "~/.cc-connect/workspaces"
+skip_git = true
+workspace_init_allow_local_paths = true   # 允许 /workspace init 传本地绝对路径，否则只收 git URL
+
+[projects.agent]
+type = "claudecode"
+
+[projects.agent.options]
+# cc-connect 会在其后追加 claude 的 flags（--output-format stream-json 等）
+
+# Feishu / Lark（WebSocket 长连接，无需公网 IP）
+[[projects.platforms]]
+type = "feishu"
+
+[projects.platforms.options]
+app_id = "cli_xxx"
+app_secret = "xxx"
+# 只允许你本人驱动, 从 cc-connect log 日志里可以拿到
+# allow_from = "ou_xxx"
